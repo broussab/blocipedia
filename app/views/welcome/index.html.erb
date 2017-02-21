@@ -2,6 +2,11 @@
 <div class="jumbotron center-align">
   <h1>Blocipedia</h1>
   <h3>Social, Markdown Wikis</h3>
+  <div>
+    <% unless user_signed_in? %>
+    <%= link_to "Sign In", new_user_session_path, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
 </div>
 
 <div class="container center-align">
