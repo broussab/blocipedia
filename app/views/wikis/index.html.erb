@@ -1,9 +1,9 @@
-<h1>Public Wikis</h1>
+<h1>Wikis</h1>
 
 <div class="row">
   <div class="col-md-8">
     <% @wikis.each do |wiki| %>
-    <% if wiki.private == false %>
+    <% if wiki.private == false || (wiki.private == true && wiki.user == current_user) %>
     <div class="media">
       <div class="media-body">
         <h4 class="media-heading">
