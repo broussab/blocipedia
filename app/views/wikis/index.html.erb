@@ -1,8 +1,9 @@
-<h1>Wikis</h1>
+<h1>Public Wikis</h1>
 
 <div class="row">
   <div class="col-md-8">
     <% @wikis.each do |wiki| %>
+    <% if wiki.private == false %>
     <div class="media">
       <div class="media-body">
         <h4 class="media-heading">
@@ -11,9 +12,15 @@
       </div>
     </div>
     <% end %>
+    <% end %>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-4 center-align">
     <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success' %>
   </div>
+  <% if current_user.standard? %>
+  <h5>If you would like to create private wikis,
+    <%= link_to "upgrade", new_charge_path %>
+    your account to Premium!</h5>
+  <% end %>
 </div>

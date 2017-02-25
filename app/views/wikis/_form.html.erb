@@ -17,8 +17,10 @@
 <%= f.label :body %>
 <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
 <% end %>
-<%= check_box_tag (:private) %>
+<% if current_user.admin? || current_user.premium? %>
+<%= check_box_tag :private, 1, true %>
 <%= label_tag(:private, "Private") %>
+<% end %>
 <div class="form-group">
   <%= f.submit "Save", class: 'btn btn-success' %>
 </div>

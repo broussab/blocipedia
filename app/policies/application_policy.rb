@@ -6,6 +6,18 @@ class ApplicationPolicy
     @record = record
   end
 
+  def standard?
+    user.standard?
+  end
+
+  def premium?
+    user.premium?
+  end
+
+  def admin?
+    user.admin?
+  end
+
   def index?
     false
   end

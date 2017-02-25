@@ -1,7 +1,6 @@
 require 'random_data'
 5.times do
   User.create!(
-    # #3
     username: Faker::Internet.user_name,
     email:    Faker::Internet.email,
     password: Faker::Internet.password(8)
