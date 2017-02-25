@@ -1,6 +1,10 @@
 class WikisController < ApplicationController
   before_action :privacy_update
 
+  def markdown
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+  end
+
   def index
     @wikis = Wiki.all
   end
