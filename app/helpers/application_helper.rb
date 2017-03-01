@@ -5,6 +5,10 @@ module ApplicationHelper
     content_tag :div, capture(&block), class: css_class
    end
 
+  def user_collab_select_options(users)
+    users.collect { |u| [u.username, u.id] }
+  end
+
   def markdown(text)
     options = {
       filter_html:     true,

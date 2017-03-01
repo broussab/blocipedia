@@ -43,6 +43,7 @@ class ChargesController < ApplicationController
   def downgrade
     current_user.update_attributes(role: 'standard')
     if current_user.standard?
+      current_user.wikis_to_public
       flash[:notice] = 'You now have a Standard Membership'
       redirect_to wikis_path(current_user)
     else

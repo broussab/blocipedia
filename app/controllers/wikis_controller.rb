@@ -1,25 +1,32 @@
 class WikisController < ApplicationController
-  before_action :privacy_update
+  # before_action :privacy_update
+  def users_name
+    'username'
+  end
 
   def markdown
     Redcarpet::Markdown.new(Redcarpet::Render::HTML)
   end
 
   def index
-    @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)
   end
 
   def show
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
+    @collabs = @wiki.users
   end
 
   def new
     @wiki = Wiki.new
+    @collabs = Collaborator.where(wiki_id: @wiki.id)
   end
 
   def create
     @wiki = Wiki.new(wiki_params)
     @wiki.user = current_user
+    @collabs = Collaborator.where(wikis_id: @wiki.id)
 
     if @wiki.save
       flash[:notice] = 'Wiki was saved.'
@@ -32,6 +39,9 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
+    @collabs = @wiki.collaborators
+    @new_collabs = User.all
   end
 
   def update
@@ -40,6 +50,7 @@ class WikisController < ApplicationController
     @wiki.assign_attributes(wiki_params)
 
     if @wiki.save
+      wiki_collaborators_path(@wiki)
       flash[:notice] = 'wiki was updated.'
       redirect_to @wiki
     else
